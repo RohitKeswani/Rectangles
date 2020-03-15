@@ -4,11 +4,11 @@ import models.Rectangle;
 
 public class Execute {
     public static void main(String[] args) {
-        Coordinate topLeft = new Coordinate(30 ,70);
-        Coordinate bottomRight = new Coordinate(60, 50);
+        Coordinate topLeft = new Coordinate(70 ,70);
+        Coordinate bottomRight = new Coordinate(80, 60);
         Rectangle firstRectangle = new Rectangle(topLeft, bottomRight);
-        Coordinate left = new Coordinate(40, 60);
-        Coordinate right = new Coordinate(30,30);
+        Coordinate left = new Coordinate(30, 60);
+        Coordinate right = new Coordinate(60,30);
         Rectangle secondRectangle = new Rectangle(left, right);
         Analyzer analyzer = new Analyzer();
         boolean[] status = analyzer.analyze(firstRectangle, secondRectangle);
