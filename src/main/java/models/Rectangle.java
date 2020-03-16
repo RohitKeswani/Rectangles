@@ -4,6 +4,10 @@ public class Rectangle {
     private Coordinate topLeft;
     private Coordinate bottomRight;
 
+    public Rectangle()
+    {
+
+    }
     public Rectangle(Coordinate topLeft, Coordinate bottomRight)
     {
         this.topLeft = topLeft;

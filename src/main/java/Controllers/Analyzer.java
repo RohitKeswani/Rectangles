@@ -3,6 +3,8 @@ package Controllers;
 import models.Rectangle;
 
 public class Analyzer {
+    public static String adjacencyType = "";
+
     public boolean[] analyze(Rectangle firstRectangle, Rectangle secondRectangle) {
         boolean[] status = new boolean[3];
         boolean contained, adjacent, intersect = false;
@@ -54,17 +56,20 @@ public class Analyzer {
                 //check for proper or partial
                 if(sameStartPosition(firstRectangle, secondRectangle, compareHeight))
                 {
-                    System.out.println("Proper");
+                    adjacencyType ="Proper";
+                    //System.out.println("Proper");
                     adjacent = true;
                 }
                 else
                 {
-                    System.out.println("Partial");
+                    adjacencyType="Partial";
+                    //System.out.println("Partial");
                     adjacent = true;
                 }
             else
             {
-                System.out.println("Sub-line");
+                adjacencyType="Sub-line";
+                //System.out.println("Sub-line");
                 adjacent = true;
             }
         return adjacent;
