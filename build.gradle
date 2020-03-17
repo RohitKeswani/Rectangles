@@ -28,3 +28,12 @@ sourceSets {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+task createJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Version': version,
+                'Main-Class': 'Execute'
+    }
+    baseName = "Rectangles"
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

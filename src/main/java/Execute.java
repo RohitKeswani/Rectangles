@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class Execute {
     public static void main(String[] args) {
-        String pathToFile = "src/main/resources/RectangleDimensions";
+        String pathToFile =  args[0]; //"src/main/resources/RectangleDimensions";
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader
                     (pathToFile));
