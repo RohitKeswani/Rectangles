@@ -7,6 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/***
+ * This class consists of main method, which read the txt file in /src/main/resources line by line and gets the
+ * coordinates to create Rectangle objects, which are then passed on to Analyzer Class methods to analyze relations
+ * amongst them.
+ */
 public class Execute {
     public static void main(String[] args) {
         String pathToFile = "src/main/resources/RectangleDimensions";
@@ -17,6 +22,7 @@ public class Execute {
             int count=1;
             while((line = bufferedReader.readLine()) !=null) {
                 String[] coordinates = line.split(",");
+                //if any line of resources file, does not have exact 8 dimensions.
                 if(coordinates.length != 8){
                     System.err.println("Given "+coordinates.length+" dimensions. Expected 8 dimensions; " +
                             "Check dimensions file");
@@ -24,6 +30,7 @@ public class Execute {
                 }
                 Rectangle firstRectangle = null, secondRectangle=null;
                 boolean first = true;
+                //reads 4 coordinates and creates one rectangle in each run.
                 for(int i=0;i<coordinates.length;i+=4) {
                     Coordinate topLeft = new Coordinate(Integer.parseInt(coordinates[i]) ,
                             Integer.parseInt(coordinates[i+1]));
@@ -36,7 +43,9 @@ public class Execute {
                     first = false;
                 }
                 Analyzer analyzer = new Analyzer();
+                //analyzer.analyze method accepts two created rectangles and returns types of relations between them.
                 boolean[] status = analyzer.analyze(firstRectangle, secondRectangle);
+                //prints the well-formatted output.
                 printOutput(count, status, firstRectangle, secondRectangle);
                 count++;
             }
@@ -52,6 +61,13 @@ public class Execute {
         }
     }
 
+    /**
+     * This method prints the output in pretty and readable format.
+     * @param count line number from resources file to keep a track.
+     * @param status the boolean array returned by analyze method of Analyzer Class.
+     * @param firstRectangle object of first rectangle
+     * @param secondRectangle object of second rectangle.
+     */
     private static void printOutput(int count, boolean[] status,
                                     Rectangle firstRectangle, Rectangle secondRectangle) {
         System.out.println("Count: "+count);
@@ -62,6 +78,8 @@ public class Execute {
                 secondRectangle.getTopLeft().getY()+"),("+secondRectangle.getBottomRight().getX()+","
                 +secondRectangle.getBottomRight().getY()+")");
         System.out.println("-------------------RESULTS-------------------");
+        //boolean array at index[0] informs if containment is possible, index[1] tells if adjacency is possible and
+        //index[2] informs if intersection is possible.
         if(status[0])
             System.out.println("Containment");
         if(status[1])

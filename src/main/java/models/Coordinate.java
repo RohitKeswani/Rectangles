@@ -1,5 +1,10 @@
 package models;
 
+/**
+ * This class is for coordinates. Each coordinate has two attributes. X and Y attributes.
+ * It has a constructor to set the values of coordinates while initialization, or later by using
+ * getters and setters.
+ */
 public class Coordinate {
     private int x;
     private int y;
@@ -9,6 +14,7 @@ public class Coordinate {
         this.x = x;
         this.y = y;
     }
+
     public int getY() {
         return y;
     }
