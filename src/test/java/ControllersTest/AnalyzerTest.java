@@ -146,12 +146,17 @@ public class AnalyzerTest {
         Assert.assertFalse(analyzer.checkAdjacent(firstRectangle, secondRectangle));
     }
 
-//    @Test
-//    public void tem1p() {
-//        Rectangle firstRectangle = initializeRectangle(10,80,30,60);
-//        Rectangle secondRectangle = initializeRectangle(30,60,60,30);
-//        Assert.assertFalse(analyzer.checkContainment(firstRectangle,secondRectangle));
-//        Assert.assertFalse(analyzer.checkIntersection(firstRectangle, secondRectangle));
-//        Assert.assertFalse(analyzer.checkAdjacent(firstRectangle, secondRectangle));
-//    }
+    @Test
+    public void testForContainmentAndAdjacent(){
+        Rectangle firstRectangle = initializeRectangle(20,60,50,40);
+        Rectangle secondRectangle = initializeRectangle(250,60,50,50);
+        Assert.assertTrue(analyzer.checkContainment(firstRectangle,secondRectangle));
+        Assert.assertTrue(analyzer.checkAdjacent(firstRectangle, secondRectangle));
+    }
+    @Test
+    public void checkCorners() {
+        Rectangle firstRectangle = initializeRectangle(10,80,30,60);
+        Rectangle secondRectangle = initializeRectangle(30,60,60,30);
+        Assert.assertFalse(analyzer.checkCorners(firstRectangle,secondRectangle));
+    }
 }

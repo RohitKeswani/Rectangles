@@ -23,8 +23,21 @@ public class Analyzer {
     }
 
     //TODO returns false if corners shared, else true
-    private boolean checkCorners(Rectangle firstRectangle, Rectangle secondRectangle) {
-        return true;
+    public boolean checkCorners(Rectangle firstRectangle, Rectangle secondRectangle) {
+        boolean isPossible = true;
+        if(firstRectangle.getTopLeft().getX() == secondRectangle.getBottomRight().getX() &&
+        firstRectangle.getTopLeft().getY() == secondRectangle.getBottomRight().getY())
+            isPossible = false;
+        if(firstRectangle.getBottomRight().getX() == secondRectangle.getTopLeft().getX() &&
+        firstRectangle.getBottomRight().getY() == secondRectangle.getTopLeft().getY())
+            isPossible = false;
+        if(firstRectangle.getTopLeft().getX() == secondRectangle.getBottomRight().getX() &&
+        firstRectangle.getBottomRight().getY() == secondRectangle.getTopLeft().getY())
+            isPossible = false;
+        if(firstRectangle.getBottomRight().getX() == secondRectangle.getTopLeft().getX() &&
+        firstRectangle.getTopLeft().getY() == secondRectangle.getBottomRight().getY())
+            isPossible = false;
+        return isPossible;
     }
 
     public boolean checkIntersection(Rectangle firstRectangle, Rectangle secondRectangle) {
@@ -42,7 +55,9 @@ public class Analyzer {
         boolean adjacent = false;
         boolean compareHeight = false;
         if(firstRectangle.getBottomRight().getX() == secondRectangle.getTopLeft().getX() ||
-        firstRectangle.getTopLeft().getX() == secondRectangle.getBottomRight().getX() )
+            firstRectangle.getTopLeft().getX() == secondRectangle.getBottomRight().getX() ||
+                firstRectangle.getTopLeft().getX() == secondRectangle.getTopLeft().getX() ||
+                firstRectangle.getBottomRight().getX() == secondRectangle.getBottomRight().getX())
         {
             if(verifyY(firstRectangle, secondRectangle))
             {
@@ -51,9 +66,10 @@ public class Analyzer {
             }
         }
         else if (firstRectangle.getBottomRight().getY() == secondRectangle.getTopLeft().getY() ||
-                secondRectangle.getBottomRight().getY() == firstRectangle.getTopLeft().getY())
+                secondRectangle.getBottomRight().getY() == firstRectangle.getTopLeft().getY() ||
+                firstRectangle.getTopLeft().getY() == secondRectangle.getTopLeft().getY() ||
+                firstRectangle.getBottomRight().getY() ==  secondRectangle.getBottomRight().getY())
         {
-            System.out.println("In second cond");
             if(verifyX(firstRectangle, secondRectangle))
             {
                 adjacent = true;
@@ -66,19 +82,16 @@ public class Analyzer {
                 if(sameStartPosition(firstRectangle, secondRectangle, compareHeight))
                 {
                     adjacencyType ="Proper";
-                    //System.out.println("Proper");
                     adjacent = true;
                 }
                 else
                 {
                     adjacencyType="Partial";
-                    //System.out.println("Partial");
                     adjacent = true;
                 }
             else
             {
                 adjacencyType="Sub-line";
-                //System.out.println("Sub-line");
                 adjacent = true;
             }
         return adjacent;
@@ -91,10 +104,6 @@ public class Analyzer {
         (firstRectangle.getBottomRight().getX() <= secondRectangle.getTopLeft().getX() &&
         secondRectangle.getTopLeft().getX() <= firstRectangle.getBottomRight().getX()))
             inRange = true;
-//        if(secondRectangle.getBottomRight().getX() < firstRectangle.getTopLeft().getX())
-//            inRange = false;
-//        if(secondRectangle.getTopLeft().getX() > firstRectangle.getBottomRight().getX())
-//            inRange = false;
         return inRange;
     }
 
@@ -103,12 +112,8 @@ public class Analyzer {
         if((firstRectangle.getTopLeft().getY() >= secondRectangle.getBottomRight().getY() &&
                 secondRectangle.getBottomRight().getY() >= firstRectangle.getBottomRight().getY()) ||
         firstRectangle.getTopLeft().getY() >= secondRectangle.getTopLeft().getY() && secondRectangle.getTopLeft().getY()
-                >= firstRectangle.getBottomRight().getY()) {
-            //if(secondRectangle.getBottomRight().getY()>firstRectangle.getTopLeft().getY())
+                >= firstRectangle.getBottomRight().getY())
                 inRange = true;
-        }
-//        if(secondRectangle.getTopLeft().getY()<firstRectangle.getBottomRight().getY())
-//            inRange = false;
         return inRange;
     }
 
@@ -146,15 +151,15 @@ public class Analyzer {
 
     public boolean checkContainment(Rectangle firstRectangle, Rectangle secondRectangle) {
         boolean contained = false;
-        if(firstRectangle.getTopLeft().getX() < secondRectangle.getTopLeft().getX() &&
-                firstRectangle.getTopLeft().getY() > secondRectangle.getTopLeft().getY() &&
-                firstRectangle.getBottomRight().getX() > secondRectangle.getBottomRight().getX() &&
-                firstRectangle.getBottomRight().getY() < secondRectangle.getBottomRight().getY())
+        if(firstRectangle.getTopLeft().getX() <= secondRectangle.getTopLeft().getX() &&
+                firstRectangle.getTopLeft().getY() >= secondRectangle.getTopLeft().getY() &&
+                firstRectangle.getBottomRight().getX() >= secondRectangle.getBottomRight().getX() &&
+                firstRectangle.getBottomRight().getY() <= secondRectangle.getBottomRight().getY())
             contained = true;
-        if(secondRectangle.getTopLeft().getX() < firstRectangle.getTopLeft().getX() &&
-        secondRectangle.getTopLeft().getY() > firstRectangle.getTopLeft().getY() &&
-        secondRectangle.getBottomRight().getX() > firstRectangle.getBottomRight().getX() &&
-        secondRectangle.getBottomRight().getY() < firstRectangle.getBottomRight().getY())
+        if(secondRectangle.getTopLeft().getX() <= firstRectangle.getTopLeft().getX() &&
+        secondRectangle.getTopLeft().getY() >= firstRectangle.getTopLeft().getY() &&
+        secondRectangle.getBottomRight().getX() >= firstRectangle.getBottomRight().getX() &&
+        secondRectangle.getBottomRight().getY() <= firstRectangle.getBottomRight().getY())
             contained = true;
         return contained;
     }
